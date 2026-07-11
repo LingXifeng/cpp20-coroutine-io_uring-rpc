@@ -1,0 +1,10 @@
+build/
+build-*/
+.vscode/
+.idea/
+*.o
+*.a
+*.so
+*.d
+CMakeUserPresets.json
+compile_commands.json
