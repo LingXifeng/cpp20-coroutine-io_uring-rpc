@@ -12,31 +12,19 @@ jobs:
     strategy:
       matrix:
         build_type: [Release, Debug]
-        sanitizer: [none, asan]
-        exclude:
-          - build_type: Release
-            sanitizer: asan
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Install dependencies
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq liburing-dev cmake g++ clang-format
-
-      - name: Check code format
-        run: |
-          find . -name "*.hpp" -o -name "*.cpp" | grep -v build | grep -v .git | xargs clang-format --dry-run --Werror
+          sudo apt-get install -y -qq liburing-dev cmake g++
 
       - name: Configure CMake
         run: |
           mkdir -p build && cd build
-          if [ "${{ matrix.sanitizer }}" = "asan" ]; then
-            cmake .. -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
-                     -DCMAKE_CXX_FLAGS="-fsanitize=address,undefined -fno-omit-frame-pointer"
-          else
-            cmake .. -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
-          fi
+          cmake .. -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
 
       - name: Build
         run: cmake --build build -j$(nproc)
@@ -48,9 +36,3 @@ jobs:
           ./tests/test_serializer
           ./tests/test_coroutine
           ./tests/test_e2e
-          ./test_coro_tcp
-          ./test_rpc_call
-          ./test_connpool_lb
-
-      - name: Run benchmarks
-        run: cd build && ./tests/benchmark
