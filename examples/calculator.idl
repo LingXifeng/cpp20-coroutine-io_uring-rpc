@@ -1,0 +1,25 @@
+# Calculator Service IDL
+namespace calculator
+
+struct AddRequest {
+    int32 a;
+    int32 b;
+}
+
+struct AddResponse {
+    int32 result;
+}
+
+struct MultiplyRequest {
+    int32 a;
+    int32 b;
+}
+
+struct MultiplyResponse {
+    int32 result;
+}
+
+service Calculator {
+    AddResponse add(AddRequest req);
+    MultiplyResponse multiply(MultiplyRequest req);
+}
