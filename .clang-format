@@ -31,14 +31,8 @@ SpaceBeforeParens: ControlStatements
 SpaceBeforeRangeBasedForLoopColon: true
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
-EmptyLineAfterAccessModifier: Leave
-EmptyLineBeforeAccessModifier: Logical
-PackConstructorInitializers: NextLine
 ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
 BreakConstructorInitializers: BeforeComma
 AlwaysBreakTemplateDeclarations: Yes
-AttributeMacros:
-  - __attribute__
-  - ASIO_HANDLER
 ...
